@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
+import { showToast } from "nextjs-toast-notify";
 import {
   Zap,
   User as UserIcon,
@@ -15,6 +16,7 @@ import {
 } from "lucide-react";
 import { proCategories } from "@/Lib/constants";
 import { registerProAction } from "@/Lib/actions/pro";
+import { redirect } from "next/navigation";
 
 // --- Types ---
 interface LocationData {
@@ -166,8 +168,27 @@ const ProRegistrationPage: React.FC = () => {
       if (result.success) {
         // Maybe show a success toast or redirect
         console.log("Profile Saved:", result.data);
+
+        showToast.success("Your Information Has Been Submitted", {
+          duration: 4000, // 4 seconds
+          position: "top-right",
+          transition: "bounceIn",
+          icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+          sound: true,
+          progress: true,
+        });
+
+        redirect("/pro");
       } else {
         setErrors({ global: result.message });
+        showToast.error("Something went wrong. Please try again.", {
+          duration: 4000, // 4 seconds
+          position: "top-right",
+          transition: "bounceIn",
+          icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+          sound: true,
+          progress: true,
+        });
       }
     }
   };
