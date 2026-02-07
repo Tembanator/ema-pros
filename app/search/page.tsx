@@ -1,9 +1,7 @@
-import Navbar from "@/components/Navbar";
 import { syncUser } from "@/Lib/actions/syncUser";
 import {
   Search,
   MapPin,
-  Star,
   ShieldCheck,
   CheckCircle2,
   SlidersHorizontal,
