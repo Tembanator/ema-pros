@@ -296,7 +296,7 @@ const ProDashboard = () => {
   );
 };
 
-const XCircle = ({ size }) => (
+const XCircle = ({ size }: { size: number }) => (
   <svg
     width={size}
     height={size}
