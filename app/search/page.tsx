@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 
 const SearchDiscoveryPage = async () => {
-  const dbUser = await syncUser();
+  // const dbUser = await syncUser();
 
   const pros = [
     {
