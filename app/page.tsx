@@ -8,8 +8,6 @@ import Hero from "@/components/Hero";
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
-      {/* --- NAVIGATION --- */}
-      <Navbar />
       {/* --- HERO SECTION --- */}
       <Hero />
       {/* --- TRUST STATS --- */}

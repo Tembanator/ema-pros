@@ -1,228 +1,292 @@
 "use client";
-import React, { useState } from "react";
 import {
-  ShieldCheck,
+  TrendingUp,
   Star,
-  MapPin,
+  Wallet,
+  Clock,
   CheckCircle2,
   MessageCircle,
-  Phone,
-  ArrowLeft,
-  Image as ImageIcon,
-  Clock,
-  Award,
-  Share2,
-  Heart,
+  Calendar,
   Zap,
+  Bell,
+  LayoutDashboard,
+  Briefcase,
+  ArrowUpRight,
+  Settings,
+  MapPin,
+  Search,
+  MoreHorizontal,
 } from "lucide-react";
 
-const ProProfilePage = () => {
-  const [activeTab, setActiveTab] = useState("gallery");
+const ProDashboard = () => {
+  const activeJobs = [
+    {
+      id: "EP-9921",
+      client: "Gugu Nkosi",
+      service: "Geyser Valve Repair",
+      location: "Mbabane, Sec 4",
+      amount: "E650.00",
+      timeLeft: "45 mins remaining",
+    },
+  ];
 
-  const pro = {
-    name: "Sibusiso Dlamini",
-    title: "Master Plumber & Pipe Specialist",
-    location: "Mbabane, Hhohho",
-    rating: 4.9,
-    reviewsCount: 124,
-    verified: true,
-    momoNumber: "76****89",
-    joinedDate: "Member since 2023",
-    bio: "Certified plumber with over 10 years of experience in residential and commercial repairs. Specialized in geyser installations, leak detection, and emergency repairs across the Hhohho region.",
-    skills: [
-      "Geyser Repair",
-      "Pipe Fitting",
-      "Emergency Plumbing",
-      "Solar Heating",
-    ],
-    pricing: [
-      { service: "Call-out Fee (Inspection)", price: "E200" },
-      { service: "Standard Pipe Repair", price: "E450" },
-      { service: "Geyser Installation", price: "E1,200" },
-    ],
-    gallery: [
-      "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=600",
-      "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=600",
-      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=600",
-      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600",
-    ],
-  };
+  const recentLeads = [
+    { name: "Musa D.", service: "Pipe Leak", time: "2m ago", price: "E400" },
+    {
+      name: "Sarah M.",
+      service: "Kitchen Sink",
+      time: "15m ago",
+      price: "E350",
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-[#FDFDFF] pb-20">
-      {/* Navigation Header */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <button className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 transition font-bold text-sm">
-            <ArrowLeft size={18} /> Back to Search
-          </button>
-          <div className="flex gap-3">
-            <button className="p-2.5 rounded-xl border border-slate-100 hover:bg-slate-50 transition text-slate-400">
-              <Share2 size={18} />
-            </button>
-            <button className="p-2.5 rounded-xl border border-slate-100 hover:bg-slate-50 transition text-slate-400">
-              <Heart size={18} />
-            </button>
+    <div className="min-h-screen bg-[#F1F5F9] flex font-sans selection:bg-indigo-100 selection:text-indigo-700 text-slate-600">
+      {/* --- SIDEBAR: Clean White with Subtle Border --- */}
+      <aside className="hidden lg:flex w-64 bg-white flex-col p-6 sticky top-0 h-screen border-r border-slate-200">
+        <div className="flex items-center gap-2.5 mb-10 px-2">
+          <div className="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-100">
+            <Zap size={18} className="text-white fill-white" />
           </div>
+          <span className="text-slate-900 font-bold text-xl tracking-tight">
+            EmaPros
+          </span>
         </div>
-      </nav>
 
-      <main className="max-w-6xl mx-auto px-6 pt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {/* Left Column: Pro Info & Gallery */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Header Section */}
-            <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
-              <div className="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1540560085022-713f6f566956?auto=format&fit=crop&w=300&h=300"
-                  className="w-28 h-28 md:w-32 md:h-32 rounded-[2.5rem] object-cover ring-4 ring-indigo-50"
-                  alt={pro.name}
-                />
-                <div className="absolute -bottom-2 -right-2 bg-indigo-600 text-white p-2 rounded-2xl border-4 border-[#FDFDFF]">
-                  <ShieldCheck size={20} />
-                </div>
+        <nav className="space-y-1 flex-1">
+          {[
+            { icon: LayoutDashboard, label: "Overview", active: true },
+            { icon: Briefcase, label: "My Jobs", active: false },
+            { icon: MessageCircle, label: "Messages", active: false, badge: 3 },
+            { icon: Calendar, label: "Schedule", active: false },
+            { icon: Wallet, label: "Payouts", active: false },
+          ].map((item) => (
+            <button
+              key={item.label}
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all ${
+                item.active
+                  ? "bg-slate-900 text-white shadow-md shadow-slate-200"
+                  : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+              }`}
+            >
+              <div className="flex items-center gap-3 text-sm font-medium">
+                <item.icon size={18} strokeWidth={item.active ? 2.5 : 2} />
+                {item.label}
               </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-3xl font-black text-[#1A1C2E] tracking-tight">
-                    {pro.name}
-                  </h1>
-                </div>
-                <p className="text-indigo-600 font-bold mb-3">{pro.title}</p>
-                <div className="flex flex-wrap gap-4 text-sm font-medium text-slate-400">
-                  <span className="flex items-center gap-1.5">
-                    <MapPin size={16} /> {pro.location}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Clock size={16} /> {pro.joinedDate}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <CheckCircle2 size={16} className="text-emerald-500" /> 124
-                    Jobs Done
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Tabs Navigation */}
-            <div className="flex border-b border-slate-100 gap-8">
-              {["Gallery", "About", "Reviews"].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab.toLowerCase())}
-                  className={`pb-4 text-sm font-black uppercase tracking-widest transition-all relative ${activeTab === tab.toLowerCase() ? "text-indigo-600" : "text-slate-400"}`}
+              {item.badge && (
+                <span
+                  className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md ${item.active ? "bg-indigo-500 text-white" : "bg-indigo-100 text-indigo-700"}`}
                 >
-                  {tab}
-                  {activeTab === tab.toLowerCase() && (
-                    <div className="absolute bottom-0 left-0 w-full h-1 bg-indigo-600 rounded-full" />
-                  )}
-                </button>
+                  {item.badge}
+                </span>
+              )}
+            </button>
+          ))}
+        </nav>
+
+        <div className="mt-auto p-4 bg-slate-50 rounded-2xl border border-slate-200">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-2 h-2 bg-emerald-500 rounded-full" />
+            <span className="text-[11px] font-bold text-slate-700 uppercase tracking-tight">
+              System Online
+            </span>
+          </div>
+          <p className="text-[10px] text-slate-400 font-medium">
+            Verified Professional
+          </p>
+        </div>
+      </aside>
+
+      {/* --- MAIN CONTENT --- */}
+      <main className="flex-1 p-8 lg:p-12 overflow-y-auto">
+        <header className="flex items-center justify-between mb-10">
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
+              Welcome, Sibusiso
+            </h1>
+            <p className="text-sm font-medium text-slate-500 mt-1">
+              You have{" "}
+              <span className="text-indigo-600 font-bold">3 new leads</span>{" "}
+              today.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="relative group hidden md:block">
+              <Search
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                size={16}
+              />
+              <input
+                type="text"
+                placeholder="Search jobs..."
+                className="bg-white border border-slate-200 rounded-xl py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none w-56 transition-all shadow-sm"
+              />
+            </div>
+            <button className="p-2.5 bg-white border border-slate-200 rounded-xl text-slate-500 hover:text-indigo-600 hover:border-indigo-500 transition-all shadow-sm relative">
+              <Bell size={20} />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 border-2 border-white rounded-full"></span>
+            </button>
+            <div className="h-10 w-[1px] bg-slate-200 mx-1" />
+            <img
+              src="https://images.unsplash.com/photo-1540560085022-713f6f566956?auto=format&fit=crop&w=100&h=100"
+              className="w-10 h-10 rounded-xl object-cover border border-slate-200 shadow-sm"
+              alt="Profile"
+            />
+          </div>
+        </header>
+
+        {/* --- STATS: White Cards on Slate Background --- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          {[
+            {
+              label: "Earnings",
+              value: "E12,450",
+              color: "text-emerald-600",
+              bg: "bg-emerald-50",
+              icon: Wallet,
+            },
+            {
+              label: "Active Jobs",
+              value: "02",
+              color: "text-indigo-600",
+              bg: "bg-indigo-50",
+              icon: Clock,
+            },
+            {
+              label: "Rating",
+              value: "4.9",
+              color: "text-amber-600",
+              bg: "bg-amber-50",
+              icon: Star,
+            },
+            {
+              label: "Success",
+              value: "98%",
+              color: "text-blue-600",
+              bg: "bg-blue-50",
+              icon: TrendingUp,
+            },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className="bg-white border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-slate-300 transition-all group"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div
+                  className={`${stat.bg} ${stat.color} p-2.5 rounded-xl transition-transform group-hover:scale-110`}
+                >
+                  <stat.icon size={20} strokeWidth={2.5} />
+                </div>
+                <ArrowUpRight
+                  size={16}
+                  className="text-slate-300 group-hover:text-indigo-500"
+                />
+              </div>
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                {stat.label}
+              </p>
+              <h3 className="text-2xl font-bold text-slate-900 tracking-tight">
+                {stat.value}
+              </h3>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* MAIN SECTION */}
+          <div className="lg:col-span-2">
+            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+              <div className="px-6 py-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <h2 className="text-sm font-bold text-slate-900 uppercase tracking-widest">
+                  Active Assignment
+                </h2>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-emerald-500 rounded-full" />
+                  <span className="text-[10px] font-bold text-emerald-600 uppercase">
+                    On Site
+                  </span>
+                </div>
+              </div>
+
+              {activeJobs.map((job) => (
+                <div
+                  key={job.id}
+                  className="p-8 flex flex-col md:flex-row items-center justify-between gap-8"
+                >
+                  <div className="flex items-center gap-5">
+                    <div className="w-14 h-14 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center text-indigo-600">
+                      <MapPin size={24} strokeWidth={2} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-xl text-slate-900 mb-0.5">
+                        {job.client}
+                      </h4>
+                      <p className="text-xs font-medium text-slate-500">
+                        {job.service} •{" "}
+                        <span className="text-indigo-600 font-bold">
+                          {job.id}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-10">
+                    <div className="text-center md:text-right">
+                      <p className="text-2xl font-bold text-slate-900">
+                        {job.amount}
+                      </p>
+                      <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-tighter">
+                        {job.timeLeft}
+                      </p>
+                    </div>
+                    <button className="bg-slate-900 text-white px-6 py-3 rounded-xl text-xs font-bold hover:bg-indigo-600 transition-all shadow-lg shadow-slate-200">
+                      Console
+                    </button>
+                  </div>
+                </div>
               ))}
             </div>
-
-            {/* Content Switcher */}
-            <div className="pt-4">
-              {activeTab === "gallery" && (
-                <div className="grid grid-cols-2 gap-4">
-                  {pro.gallery.map((img, i) => (
-                    <img
-                      key={i}
-                      src={img}
-                      className="rounded-3xl h-48 md:h-64 w-full object-cover hover:opacity-90 transition cursor-pointer"
-                      alt="Work sample"
-                    />
-                  ))}
-                  <div className="bg-slate-50 rounded-3xl h-48 md:h-64 flex flex-col items-center justify-center text-slate-400 border-2 border-dashed border-slate-200">
-                    <ImageIcon size={32} className="mb-2 opacity-20" />
-                    <span className="font-bold text-xs uppercase tracking-tighter">
-                      View All 12 Photos
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {activeTab === "about" && (
-                <div className="space-y-6 max-w-xl text-slate-600 leading-relaxed">
-                  <p>{pro.bio}</p>
-                  <div className="grid grid-cols-2 gap-4">
-                    {pro.skills.map((skill) => (
-                      <div
-                        key={skill}
-                        className="flex items-center gap-2 bg-indigo-50/50 p-3 rounded-xl border border-indigo-100/50"
-                      >
-                        <Award size={16} className="text-indigo-600" />
-                        <span className="text-sm font-bold text-indigo-900">
-                          {skill}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
           </div>
 
-          {/* Right Column: Booking Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-[2.5rem] border border-slate-100 p-8 shadow-2xl shadow-indigo-900/5 sticky top-28">
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
-                    Service starting at
-                  </p>
-                  <span className="text-3xl font-black text-[#1A1C2E]">
-                    E350
-                  </span>
-                </div>
-                <div className="bg-amber-50 px-3 py-2 rounded-2xl flex flex-col items-center">
-                  <div className="flex items-center gap-1">
-                    <Star className="text-amber-500 fill-amber-500" size={14} />
-                    <span className="text-sm font-black text-amber-700">
-                      4.9
-                    </span>
-                  </div>
-                  <span className="text-[10px] font-bold text-amber-600 uppercase">
-                    Top Pro
-                  </span>
-                </div>
+          {/* LEADS PANEL */}
+          <div className="space-y-6">
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xs font-bold text-slate-900 uppercase tracking-widest">
+                  Incoming Leads
+                </h2>
+                <Zap size={14} className="text-amber-500 fill-amber-500" />
               </div>
-
-              <div className="space-y-4 mb-8">
-                {pro.pricing.map((item, i) => (
+              <div className="space-y-5">
+                {recentLeads.map((lead, i) => (
                   <div
                     key={i}
-                    className="flex justify-between items-center text-sm"
+                    className="group p-4 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all cursor-pointer"
                   >
-                    <span className="text-slate-500 font-medium">
-                      {item.service}
-                    </span>
-                    <span className="text-[#1A1C2E] font-bold">
-                      {item.price}
-                    </span>
+                    <div className="flex justify-between items-start mb-1">
+                      <p className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                        {lead.name}
+                      </p>
+                      <span className="text-[10px] font-medium text-slate-400">
+                        {lead.time}
+                      </span>
+                    </div>
+                    <p className="text-xs font-medium text-slate-500 mb-4">
+                      {lead.service} •{" "}
+                      <span className="text-slate-900 font-bold">
+                        {lead.price}
+                      </span>
+                    </p>
+                    <div className="flex gap-2">
+                      <button className="flex-1 bg-white border border-slate-200 text-slate-900 py-2 rounded-lg text-[10px] font-bold uppercase hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all shadow-sm">
+                        Accept
+                      </button>
+                      <button className="px-2.5 text-slate-300 hover:text-rose-500 transition-colors">
+                        <XCircle size={16} />
+                      </button>
+                    </div>
                   </div>
                 ))}
-              </div>
-
-              <div className="space-y-3">
-                <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-3 transition-all shadow-lg shadow-indigo-200">
-                  <Zap size={18} className="fill-white" />
-                  Book via MoMo
-                </button>
-                <button className="w-full bg-[#1A1C2E] hover:bg-[#2D3154] text-white py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-3 transition-all shadow-lg shadow-slate-200">
-                  <MessageCircle size={18} />
-                  Chat with Sibusiso
-                </button>
-                <button className="w-full flex items-center justify-center gap-2 py-4 text-slate-400 font-bold text-xs uppercase tracking-widest hover:text-indigo-600 transition">
-                  <Phone size={14} /> Call Professional
-                </button>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-slate-50">
-                <div className="flex items-center gap-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 p-3 rounded-xl">
-                  <CheckCircle2 size={16} />
-                  <span>Money held securely until job is done</span>
-                </div>
               </div>
             </div>
           </div>
@@ -232,4 +296,21 @@ const ProProfilePage = () => {
   );
 };
 
-export default ProProfilePage;
+const XCircle = ({ size }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="m15 9-6 6" />
+    <path d="m9 9 6 6" />
+  </svg>
+);
+
+export default ProDashboard;
